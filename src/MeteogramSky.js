@@ -27,12 +27,24 @@ export default class MeteogramSky extends Component {
 	render() {
 		let table
 		if (this.state.data.ref_time){
-			let refTimeUTC = this.utc(this.state.data.ref_time)
+			let data = this.state.data
+			let refTimeUTC = this.utc(data.ref_time)
 			let endTimeUTC = this.forecastTime(refTimeUTC, 39)
 
 			table = (
 				<Table celled structured className='meteogram-table' style={{ display:'block', overflowX:'scroll', width:'auto' }}>
 					<MeteogramTimeHeader start={refTimeUTC} end={endTimeUTC} />
+
+					<Table.Body>
+						<MeteogramWindUpperRow data={data.upper_wind} level={850} />
+						<MeteogramWindUpperRow data={data.upper_wind} level={900} />
+						<MeteogramWindUpperRow data={data.upper_wind} level={950} />
+						<MeteogramWindUpperRow data={data.upper_wind} level={975} />
+						<MeteogramWindUpperRow data={data.upper_wind} level={1000} />
+						<MeteogramWindRow data={data.surface} />
+						<MeteogramTempRow data={data.surface} />
+						<MeteogramRainRow data={data.surface} />
+					</Table.Body>
 				</Table>
 			)
 		}
@@ -70,7 +82,7 @@ class MeteogramTimeHeader extends Component {
 
 	_createHoursList = () => {
 		let nowday = null
-		for (var d = this.props.start; d < this.props.end; d += 3600 * 1000){
+		for (var d = this.props.start; d <= this.props.end; d += 3600 * 1000){
 			var date = new Date(d);
 			var day = (date.getMonth() + 1) + '/' + ('0' + date.getDate()).slice(-2)
 			var hh = ('0' + date.getHours()).slice(-2)
@@ -111,3 +123,55 @@ class MeteogramTimeHeader extends Component {
 	}
 }
 
+class MeteogramWindRow extends Component {
+	render() {
+		return (
+			<Table.Row>
+				{this.props.data.map((d, i) => {
+					let speed = d.wind.speed.toFixed(1)
+					return (<Table.Cell key={i}>{speed}</Table.Cell>)
+				})}
+			</Table.Row>
+		)
+	}
+}
+
+class MeteogramWindUpperRow extends Component {
+	render() {
+		let level = this.props.level
+		return (
+			<Table.Row>
+				{this.props.data.map((d, i) => {
+					let speed = d[level].speed.toFixed(1)
+					return (<Table.Cell colSpan={3} key={i}>{speed}</Table.Cell>)
+				})}
+			</Table.Row>
+		)
+	}
+}
+
+class MeteogramTempRow extends Component {
+	render() {
+		return (
+			<Table.Row>
+				{this.props.data.map((d, i) => {
+					let temp = d.temp.toFixed(1)
+					return (<Table.Cell key={i}>{temp}</Table.Cell>)
+				})}
+			</Table.Row>
+		)
+	}
+}
+
+class MeteogramRainRow extends Component {
+	render() {
+		return (
+			<Table.Row>
+				{this.props.data.map((d, i) => {
+					let rain = (d.rain !== null) ? d.rain.toFixed(1) : '-'
+					return (<Table.Cell key={i}>{rain}</Table.Cell>)
+				})}
+			</Table.Row>
+		)
+	}
+}
