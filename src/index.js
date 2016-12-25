@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import MeteogramSky from './MeteogramSky';
 
 ReactDOM.render(
-  <App />,
+  <MeteogramSky lat={35.01} lon={135.76} />,
   document.getElementById('root')
 );
