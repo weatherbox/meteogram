@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Table } from 'semantic-ui-react'
-import './MeteogramSky.css' 
+import './MeteogramSky.css'
+
+const MSM_API = 'https://5w1rrej03e.execute-api.ap-northeast-1.amazonaws.com/dev' 
 
 export default class MeteogramSky extends Component {
 	state = {
@@ -13,7 +15,7 @@ export default class MeteogramSky extends Component {
 
 	getSkyData = (lat, lon) => {
 		let self = this
-		fetch('https://msm-api.herokuapp.com/sky/current/' + lat + '/' + lon, { mode: 'cors' })
+		fetch(MSM_API + '/sky/current/' + lat + '/' + lon, { mode: 'cors' })
 			.then(function(response) {
 				return response.json()
 			}).then(function(json) {
