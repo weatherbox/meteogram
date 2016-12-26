@@ -26,6 +26,14 @@ table.meteogram-table {
 	font-size: 10px;
 }
 
+.wind-upper {
+	font-size: 10px;
+}
+
+.wind-upper .wind-arrow {
+	margin-right: 6px;
+}
+
 .wind-arrow {
 	width: 14px;
 }
