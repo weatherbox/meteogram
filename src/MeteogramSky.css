@@ -3,12 +3,15 @@ table.meteogram-table {
 	overflow-x: scroll;
 	width: auto;
 	font-size: 12px;
+	border: 1px solid rgba(34,36,38,.15);
 }
 
 .meteogram-table th {
 	width: 32px;
 	height: 24px;
 	padding: 8px;
+	border-left: 1px solid rgba(34,36,38,.1);
+	border-top: 1px solid rgba(34,36,38,.1);
 }
 
 .time-header-day th {
@@ -20,6 +23,8 @@ table.meteogram-table {
 	height: 24px;
 	padding: 4px;
 	text-align: center;
+	border-left: 1px solid rgba(34,36,38,.1);
+	border-top: 1px solid rgba(34,36,38,.1);
 }
 
 .wind {

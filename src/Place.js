@@ -26,6 +26,6 @@ export default class Place extends Component {
 	}
 
 	render() {
-		return (<h1>{this.state.name}</h1>)
+		return (<h3>{this.state.name}</h3>)
 	}
 }
