@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Table } from 'semantic-ui-react'
 import './MeteogramSky.css'
 
 const MSM_API = 'https://5w1rrej03e.execute-api.ap-northeast-1.amazonaws.com/dev' 
@@ -34,10 +33,10 @@ export default class MeteogramSky extends Component {
 			let endTimeUTC = this.forecastTime(refTimeUTC, 39)
 
 			table = (
-				<Table celled structured className='meteogram-table' style={{ display:'block', overflowX:'scroll', width:'auto' }}>
+				<table className='meteogram-table'>
 					<MeteogramTimeHeader start={refTimeUTC} end={endTimeUTC} />
 
-					<Table.Body>
+					<tbody>
 						<MeteogramWindUpperRow data={data.upper_wind} level={850} />
 						<MeteogramWindUpperRow data={data.upper_wind} level={900} />
 						<MeteogramWindUpperRow data={data.upper_wind} level={950} />
@@ -46,8 +45,8 @@ export default class MeteogramSky extends Component {
 						<MeteogramWindRow data={data.surface} />
 						<MeteogramTempRow data={data.surface} />
 						<MeteogramRainRow data={data.surface} />
-					</Table.Body>
-				</Table>
+					</tbody>
+				</table>
 			)
 		}
 
@@ -103,24 +102,24 @@ class MeteogramTimeHeader extends Component {
 
 	render() {
 		return (
-			<Table.Header>
-				<Table.Row>
+			<thead>
+				<tr className='time-header-day'>
 					{this.hours.map((day, i) => {
 						return (
-							<Table.HeaderCell colSpan={day.hours.length} key={i}>
+							<th colSpan={day.hours.length} key={i}>
 								{day.day}
-							</Table.HeaderCell>
+							</th>
 						)
 					})}
-				</Table.Row>
-				<Table.Row>
+				</tr>
+				<tr>
 					{this.hours.map((day) => {
 						return day.hours.map((hour) => {
-							return (<Table.HeaderCell>{hour}</Table.HeaderCell>)
+							return (<th>{hour}</th>)
 						})
 					})}
-				</Table.Row>
-			</Table.Header>
+				</tr>
+			</thead>
 		)
 	}
 }
@@ -128,12 +127,13 @@ class MeteogramTimeHeader extends Component {
 class MeteogramWindRow extends Component {
 	render() {
 		return (
-			<Table.Row>
+			<tr>
 				{this.props.data.map((d, i) => {
 					let speed = d.wind.speed.toFixed(1)
-					return (<Table.Cell key={i}>{speed}</Table.Cell>)
+					if (speed >= 10) speed = Math.round(speed)
+					return (<td key={i}>{speed}</td>)
 				})}
-			</Table.Row>
+			</tr>
 		)
 	}
 }
@@ -141,13 +141,21 @@ class MeteogramWindRow extends Component {
 class MeteogramWindUpperRow extends Component {
 	render() {
 		let level = this.props.level
+		let length = this.props.data.length
 		return (
-			<Table.Row>
+			<tr>
 				{this.props.data.map((d, i) => {
 					let speed = d[level].speed.toFixed(1)
-					return (<Table.Cell colSpan={3} key={i}>{speed}</Table.Cell>)
+					if (speed >= 10) speed = Math.round(speed)
+					if (i === 0){
+						return (<td colSpan={2} style={{ textAlign:'left' }}key={i}>{speed}</td>)
+					}else if (i === length - 1) {
+						return (<td colSpan={2} style={{ textAlign:'Right' }}key={i}>{speed}</td>)
+					}else{
+						return (<td colSpan={3} key={i}>{speed}</td>)
+					}
 				})}
-			</Table.Row>
+			</tr>
 		)
 	}
 }
@@ -155,12 +163,12 @@ class MeteogramWindUpperRow extends Component {
 class MeteogramTempRow extends Component {
 	render() {
 		return (
-			<Table.Row>
+			<tr>
 				{this.props.data.map((d, i) => {
-					let temp = d.temp.toFixed(1)
-					return (<Table.Cell key={i}>{temp}</Table.Cell>)
+					let temp = (Math.abs(d.temp) < 10) ? d.temp.toFixed(1) : d.temp.toFixed(0)
+					return (<td key={i}>{temp}</td>)
 				})}
-			</Table.Row>
+			</tr>
 		)
 	}
 }
@@ -168,12 +176,13 @@ class MeteogramTempRow extends Component {
 class MeteogramRainRow extends Component {
 	render() {
 		return (
-			<Table.Row>
+			<tr>
 				{this.props.data.map((d, i) => {
 					let rain = (d.rain !== null) ? d.rain.toFixed(1) : '-'
-					return (<Table.Cell key={i}>{rain}</Table.Cell>)
+					if (rain >= 10) rain = Math.round(rain)
+					return (<td key={i}>{rain}</td>)
 				})}
-			</Table.Row>
+			</tr>
 		)
 	}
 }

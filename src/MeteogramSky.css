@@ -1,5 +1,23 @@
 table.meteogram-table {
 	display: block;
 	overflow-x: scroll;
+	width: auto;
+	font-size: 12px;
 }
 
+.meteogram-table th {
+	width: 32px;
+	height: 24px;
+	padding: 8px;
+}
+
+.time-header-day th {
+	text-align: left;
+}
+
+.meteogram-table td {
+	width: 32px;
+	height: 24px;
+	padding: 4px;
+	text-align: center;
+}
