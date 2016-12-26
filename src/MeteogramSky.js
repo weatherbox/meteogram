@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import './MeteogramSky.css'
 
+import Address from './Address'
+
+
+
 const MSM_API = 'https://5w1rrej03e.execute-api.ap-northeast-1.amazonaws.com/dev' 
 
 export default class MeteogramSky extends Component {
@@ -52,7 +56,7 @@ export default class MeteogramSky extends Component {
 
 		return (
 			<div>
-				<h1>{this.props.lat},{this.props.lon}</h1>
+				<Address lat={this.props.lat} lon={this.props.lon} />
 				{table}
 			</div>
 		)
