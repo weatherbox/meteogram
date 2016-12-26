@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './MeteogramSky.css'
 
-import Address from './Address'
+import Place from './Place'
 
 
 
@@ -56,7 +56,7 @@ export default class MeteogramSky extends Component {
 
 		return (
 			<div>
-				<Address lat={this.props.lat} lon={this.props.lon} />
+				<Place lat={this.props.lat} lon={this.props.lon} />
 				{table}
 			</div>
 		)
