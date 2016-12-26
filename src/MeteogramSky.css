@@ -21,3 +21,13 @@ table.meteogram-table {
 	padding: 4px;
 	text-align: center;
 }
+
+.wind {
+	font-size: 10px;
+}
+
+.wind-arrow {
+	width: 14px;
+}
+
+
