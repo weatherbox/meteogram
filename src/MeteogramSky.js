@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './MeteogramSky.css'
+import 'whatwg-fetch'
 
 import Place from './Place'
 import TimeHeader from './TimeHeader'
