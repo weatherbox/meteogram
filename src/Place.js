@@ -36,10 +36,19 @@ export default class Place extends Component {
 				if (err) console.error(err)
 				console.log(res)
 
-				if (res.features){
-					let names = res.features[1].place_name.split(',')
-					let name = names[0] + ', ' + names[1]
+				if (res.features.length > 1){
+					let name
+					res.features.reverse()
+					if (res.features.length > 4) {
+						name = res.features[2].text + res.features[3].text
+					}else{
+						name = res.features[1].text + res.features[2].text
+						if (res.features[3] && res.features[3].id.match('locality')){
+							name += res.features[3].text
+						}
+					}
 					self.setState({ name: name, lat, lon })
+
 				}else{
 					self.setState({ lat, lon })
 				}
