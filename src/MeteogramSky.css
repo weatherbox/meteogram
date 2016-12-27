@@ -34,13 +34,13 @@ table.meteogram-table {
 
 .meteogram-legend {
 	position: absolute;
-	top: 56px;
+	top: 58px;
 	left: 0;
 	width: 34px;
 	background: #eaeaea;
 	font-size: 12px;
 	text-align: center;
-	line-height: 25px;
+	line-height: 24px;
 }
 
 .legend-upper {
@@ -49,20 +49,26 @@ table.meteogram-table {
 
 .legend-surface-wind {
 	font-size: 10px;
-	height: 44px;
-	line-height: 44px;
+	height: 41px;
+	line-height: 41px;
 }
 
 .wind {
 	font-size: 10px;
+	line-height: 16px;
 }
 
 .wind-upper {
 	font-size: 10px;
 }
 
-.wind-upper .wind-arrow {
+.wind svg {
+	margin-top: 2px;
+}
+
+.wind-upper svg {
 	margin-right: 6px;
+	vertical-align: middle;
 }
 
 .wind-arrow {

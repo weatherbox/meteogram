@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import arrow from './arrow.svg'
+import Wind from './Wind'
 
 export default class WindUpperRow extends Component {
 	render() {
@@ -10,8 +10,6 @@ export default class WindUpperRow extends Component {
 				{this.props.data.map((d, i) => {
 					let speed = d[level].speed.toFixed(1)
 					if (speed >= 10) speed = Math.round(speed)
-
-					let from_dir = Math.round(d[level].from / 22.5) * 22.5
 
 					let style = {}, colSpan = 3
 
@@ -25,7 +23,7 @@ export default class WindUpperRow extends Component {
 
 					return (
 						<td className='wind-upper' colSpan={colSpan} key={i}>
-							<img src={arrow} className='wind-arrow' alt='N' style={{ transform: 'rotate(' + from_dir + 'deg)' }}/>
+							<Wind dir={d[level].from} speed={speed} />
 							{speed}
 						</td>
 					)
