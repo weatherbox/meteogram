@@ -5,7 +5,7 @@ export default class MeteogramTempRow extends Component {
 		return (
 			<tr>
 				{this.props.data.map((d, i) => {
-					let temp = (Math.abs(d.temp) < 10) ? d.temp.toFixed(1) : d.temp.toFixed(0)
+					let temp = (Math.abs(d.temp) <= 10) ? d.temp.toFixed(1) : d.temp.toFixed(0)
 					return (<td key={i}>{temp}</td>)
 				})}
 			</tr>

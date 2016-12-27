@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Dimmer, Loader } from 'semantic-ui-react'
 import './MeteogramSky.css'
 import 'whatwg-fetch'
 
@@ -13,7 +14,10 @@ const MSM_API = 'https://5w1rrej03e.execute-api.ap-northeast-1.amazonaws.com/dev
 
 export default class MeteogramSky extends Component {
 	state = {
-		data: {}
+		data: {},
+		lat: null,
+		lon: null,
+		loading: true,
 	}
 
 	componentWillMount() {
@@ -27,14 +31,20 @@ export default class MeteogramSky extends Component {
 				return response.json()
 			}).then(function(json) {
 				console.log(json)
-				self.setState({ data: json })
+				self.setState({ data: json, lat, lon, loading: false })
 			}).catch(function(e) {
 				console.error(e)
 			})
 	}
 
 	render() {
-		let table, legend
+		let { lat, lon } = this.props
+		if (lat !== this.state.lat || lon !== this.state.lon){
+			this.state.loading = true
+			this.getSkyData(lat, lon)
+		}
+
+		let table
 		if (this.state.data.ref_time){
 			let data = this.state.data
 			let refTimeUTC = this.utc(data.ref_time)
@@ -56,27 +66,37 @@ export default class MeteogramSky extends Component {
 					</tbody>
 				</table>
 			)
+		}
+			
+		let legend = (
+			<div className='meteogram-legend'>
+				<div className='legend-upper'>1500m</div>
+				<div className='legend-upper'>900m</div>
+				<div className='legend-upper'>600m</div>
+				<div className='legend-upper'>300m</div>
+				<div className='legend-upper'>100m</div>
+				<div className='legend-surface-wind'>Surface</div>
+				<div>気温</div>
+				<div>降水</div>
+			</div>
+		)
 
-			legend = (
-				<div className='meteogram-legend'>
-					<div className='legend-upper'>1500m</div>
-					<div className='legend-upper'>900m</div>
-					<div className='legend-upper'>600m</div>
-					<div className='legend-upper'>300m</div>
-					<div className='legend-upper'>100m</div>
-					<div className='legend-surface-wind'>Surface</div>
-					<div>気温</div>
-					<div>降水</div>
-				</div>
+		let loading
+		if (this.state.loading){
+			loading = (
+				<Dimmer active inverted style={{ height: 267 }}>
+					<Loader />
+				</Dimmer>
 			)
 		}
 
 		return (
 			<div>
-				<Place lat={this.props.lat} lon={this.props.lon} />
+				<Place lat={lat} lon={lon} />
 				<div className='meteogram'>
 					{table}
 					{legend}
+					{loading}
 				</div>
 			</div>
 		)
