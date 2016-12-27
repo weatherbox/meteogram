@@ -1,5 +1,6 @@
 table.meteogram-table {
 	display: block;
+	margin-left: 34px;
 	overflow-x: scroll;
 	width: auto;
 	font-size: 12px;
@@ -9,7 +10,7 @@ table.meteogram-table {
 .meteogram-table th {
 	width: 32px;
 	height: 24px;
-	padding: 8px;
+	padding: 4px;
 	border-left: 1px solid rgba(34,36,38,.1);
 	border-top: 1px solid rgba(34,36,38,.1);
 }
@@ -21,10 +22,35 @@ table.meteogram-table {
 .meteogram-table td {
 	width: 32px;
 	height: 24px;
-	padding: 4px;
+	padding: 2px 4px;
 	text-align: center;
 	border-left: 1px solid rgba(34,36,38,.1);
 	border-top: 1px solid rgba(34,36,38,.1);
+}
+
+.meteogram {
+	position: relative;
+}
+
+.meteogram-legend {
+	position: absolute;
+	top: 56px;
+	left: 0;
+	width: 34px;
+	background: #eaeaea;
+	font-size: 12px;
+	text-align: center;
+	line-height: 25px;
+}
+
+.legend-upper {
+	font-size: 10px;
+}
+
+.legend-surface-wind {
+	font-size: 10px;
+	height: 44px;
+	line-height: 44px;
 }
 
 .wind {

@@ -33,7 +33,7 @@ export default class MeteogramSky extends Component {
 	}
 
 	render() {
-		let table
+		let table, legend
 		if (this.state.data.ref_time){
 			let data = this.state.data
 			let refTimeUTC = this.utc(data.ref_time)
@@ -55,12 +55,28 @@ export default class MeteogramSky extends Component {
 					</tbody>
 				</table>
 			)
+
+			legend = (
+				<div className='meteogram-legend'>
+					<div className='legend-upper'>1500m</div>
+					<div className='legend-upper'>900m</div>
+					<div className='legend-upper'>600m</div>
+					<div className='legend-upper'>300m</div>
+					<div className='legend-upper'>100m</div>
+					<div className='legend-surface-wind'>Surface</div>
+					<div>気温</div>
+					<div>降水</div>
+				</div>
+			)
 		}
 
 		return (
 			<div>
 				<Place lat={this.props.lat} lon={this.props.lon} />
-				{table}
+				<div className='meteogram'>
+					{table}
+					{legend}
+				</div>
 			</div>
 		)
 	}
